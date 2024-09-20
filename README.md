@@ -1,3 +1,3 @@
 # TODO APP API
 
-TODO API project built in NestJS with the CQRS pattern.
+TODO APP API project built in NestJS using the CQRS pattern.
