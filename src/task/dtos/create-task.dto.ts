@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ICreateTaskDto } from '../interfaces/task.interface';
+import { ICreateTaskDto } from '../../common/interfaces/task.interface';
 
 export class CreateTaskDto implements ICreateTaskDto {
   @IsNotEmpty()

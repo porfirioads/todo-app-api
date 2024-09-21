@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateTaskCommand } from '../commands/create-task.command';
 import { TaskEntityService } from '../../database/entities/task-entity/task-entity.service';
-import { ITask } from '../../interfaces/task.interface';
+import { ITask } from '../../../common/interfaces/task.interface';
 
 @CommandHandler(CreateTaskCommand)
 export class CreateTaskHandler implements ICommandHandler<CreateTaskCommand> {
