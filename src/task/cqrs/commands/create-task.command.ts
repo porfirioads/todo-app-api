@@ -1,3 +1,5 @@
+import { CreateTaskDto } from '../../dtos/create-task.dto';
+
 export class CreateTaskCommand {
-  constructor(public readonly description: string) {}
+  constructor(public readonly input: CreateTaskDto) {}
 }
