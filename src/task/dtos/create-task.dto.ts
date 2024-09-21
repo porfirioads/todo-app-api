@@ -1,9 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ITask } from '../interfaces/task.interface';
+import { ICreateTaskDto } from '../interfaces/task.interface';
 
-export class CreateTaskDto
-  implements Omit<ITask, 'id' | 'completed' | 'createdAt' | 'updatedAt'>
-{
+export class CreateTaskDto implements ICreateTaskDto {
   @IsNotEmpty()
   @IsString()
   description: string;
