@@ -5,10 +5,11 @@ import { Module } from '@nestjs/common';
 import { TaskEntityModule } from '../common/database/entities/task-entity/task-entity.module';
 import { TasksController } from './controllers/tasks.controller';
 import { UpdateTaskHandler } from './cqrs/handlers/update-task.handler';
+import { DeleteTaskHandler } from './cqrs/handlers/delete-task.handler';
 
 @Module({
   imports: [CqrsModule, DatabaseModule, TaskEntityModule],
   controllers: [TasksController],
-  providers: [CreateTaskHandler, UpdateTaskHandler],
+  providers: [CreateTaskHandler, UpdateTaskHandler, DeleteTaskHandler],
 })
 export class TaskModule {}
