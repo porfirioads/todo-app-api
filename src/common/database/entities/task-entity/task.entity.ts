@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
   Entity,
 } from 'typeorm';
-import { ITask } from '../../../../common/interfaces/task.interface';
+import { ITask } from '../../../interfaces/task.interface';
 
 @Entity({ name: 'tasks' })
 export class TaskEntity implements ITask {
