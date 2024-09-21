@@ -12,15 +12,15 @@ export class TaskEntity implements ITask {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   description: string;
 
-  @Column({ default: false })
+  @Column({ nullable: false })
   completed: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ nullable: false })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: false })
   updatedAt: Date;
 }

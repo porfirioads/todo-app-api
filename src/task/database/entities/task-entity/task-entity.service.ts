@@ -13,11 +13,16 @@ export class TaskEntityService {
   ) {}
 
   async create(task: CreateTaskDto): Promise<TaskEntity> {
-    return this.taskRepository.create(task);
+    return this.taskRepository.create({
+      ...task,
+      completed: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 
   async update(id: number, task: UpdateTaskDto): Promise<TaskEntity> {
-    await this.taskRepository.update(id, task);
+    await this.taskRepository.update(id, { ...task, updatedAt: new Date() });
     return this.taskRepository.findOneBy({ id });
   }
 
