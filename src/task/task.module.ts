@@ -7,6 +7,7 @@ import { TasksController } from './controllers/tasks.controller';
 import { UpdateTaskHandler } from './cqrs/handlers/update-task.handler';
 import { DeleteTaskHandler } from './cqrs/handlers/delete-task.handler';
 import { GetTasksHandler } from './cqrs/handlers/get-tasks.handler';
+import { GetTaskByIdHandler } from './cqrs/handlers/get-task-by-id.handler';
 
 @Module({
   imports: [CqrsModule, DatabaseModule, TaskEntityModule],
@@ -16,6 +17,7 @@ import { GetTasksHandler } from './cqrs/handlers/get-tasks.handler';
     UpdateTaskHandler,
     DeleteTaskHandler,
     GetTasksHandler,
+    GetTaskByIdHandler,
   ],
 })
 export class TaskModule {}

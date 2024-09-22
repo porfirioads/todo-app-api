@@ -14,6 +14,7 @@ import { UpdateTaskCommand } from '../cqrs/commands/update-task.command';
 import { UpdateTaskDto } from '../dtos/update-task.dto';
 import { DeleteTaskCommand } from '../cqrs/commands/delete-task.command';
 import { GetTasksQuery } from '../cqrs/queries/get-tasks.query';
+import { GetTaskByIdQuery } from '../cqrs/queries/get-task-by-id.query';
 
 @Controller('tasks')
 export class TasksController {
@@ -30,6 +31,11 @@ export class TasksController {
   @Get()
   async find() {
     return this.queryBus.execute(new GetTasksQuery());
+  }
+
+  @Get(':id')
+  async findById(@Param('id') id: number) {
+    return this.queryBus.execute(new GetTaskByIdQuery(id));
   }
 
   @Patch(':id')
