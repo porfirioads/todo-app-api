@@ -39,8 +39,10 @@ export class TaskEntityService {
     return this.taskRepository.findOneBy({ id });
   }
 
-  async find(options?: FindManyOptions<TaskEntity>): Promise<TaskEntity[]> {
-    return this.taskRepository.find(options);
+  async findAndCount(
+    options?: FindManyOptions<TaskEntity>,
+  ): Promise<[TaskEntity[], number]> {
+    return this.taskRepository.findAndCount(options);
   }
 
   async delete(id: number): Promise<DeleteResult> {
