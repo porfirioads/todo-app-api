@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateTaskDto } from '../dtos/create-task.dto';
@@ -15,6 +16,7 @@ import { UpdateTaskDto } from '../dtos/update-task.dto';
 import { DeleteTaskCommand } from '../cqrs/commands/delete-task.command';
 import { GetTasksQuery } from '../cqrs/queries/get-tasks.query';
 import { GetTaskByIdQuery } from '../cqrs/queries/get-task-by-id.query';
+import { GetTasksQueryParamsDto } from '../dtos/get-tasks-query-params.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -29,8 +31,8 @@ export class TasksController {
   }
 
   @Get()
-  async find() {
-    return this.queryBus.execute(new GetTasksQuery());
+  async find(@Query() query: GetTasksQueryParamsDto) {
+    return this.queryBus.execute(new GetTasksQuery(query));
   }
 
   @Get(':id')

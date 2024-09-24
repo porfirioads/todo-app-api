@@ -1,3 +1,5 @@
+import { GetTasksQueryParamsDto } from '../../dtos/get-tasks-query-params.dto';
+
 export class GetTasksQuery {
-  constructor() {}
+  constructor(public queryParams: GetTasksQueryParamsDto) {}
 }

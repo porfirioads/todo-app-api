@@ -10,14 +10,14 @@ export class UpdateTaskHandler implements ICommandHandler<UpdateTaskCommand> {
 
   async execute(command: UpdateTaskCommand): Promise<ITask> {
     const { id, input } = command;
-    let task = await this.taskEntityService.find(id);
+    let task = await this.taskEntityService.findOneById(id);
 
     if (!task) {
       throw new NotFoundException('TASK_NOT_FOUND');
     }
 
     await this.taskEntityService.update(id, input);
-    task = await this.taskEntityService.find(id);
+    task = await this.taskEntityService.findOneById(id);
     return task;
   }
 }

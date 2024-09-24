@@ -10,7 +10,7 @@ export class GetTaskByIdHandler implements ICommandHandler<GetTaskByIdQuery> {
 
   async execute(query: GetTaskByIdQuery): Promise<ITask> {
     const { id } = query;
-    const task = await this.taskEntityService.find(id);
+    const task = await this.taskEntityService.findOneById(id);
 
     if (!task) {
       throw new NotFoundException('TASK_NOT_FOUND');

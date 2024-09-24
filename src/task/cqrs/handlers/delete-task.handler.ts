@@ -10,7 +10,7 @@ export class DeleteTaskHandler implements ICommandHandler<DeleteTaskCommand> {
 
   async execute(command: DeleteTaskCommand): Promise<ITask> {
     const { id } = command;
-    const task = await this.taskEntityService.find(id);
+    const task = await this.taskEntityService.findOneById(id);
 
     if (!task) {
       throw new NotFoundException('TASK_NOT_FOUND');

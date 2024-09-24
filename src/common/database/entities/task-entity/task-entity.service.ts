@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import {
+  DeleteResult,
+  FindManyOptions,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 import { TaskEntity } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateTaskDto } from '../../../../task/dtos/update-task.dto';
@@ -30,12 +35,12 @@ export class TaskEntityService {
     });
   }
 
-  async find(id: number): Promise<TaskEntity> {
+  async findOneById(id: number): Promise<TaskEntity> {
     return this.taskRepository.findOneBy({ id });
   }
 
-  async findAll(): Promise<TaskEntity[]> {
-    return this.taskRepository.find();
+  async find(options?: FindManyOptions<TaskEntity>): Promise<TaskEntity[]> {
+    return this.taskRepository.find(options);
   }
 
   async delete(id: number): Promise<DeleteResult> {
