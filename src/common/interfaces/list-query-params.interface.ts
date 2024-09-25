@@ -11,5 +11,5 @@ export interface IListQueryParams<T> {
   search?: string;
   page?: number;
   limit?: number;
-  order?: IListQuerySort<T>;
+  sort?: IListQuerySort<T>;
 }

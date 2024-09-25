@@ -11,7 +11,7 @@ export class GetTasksHandler implements ICommandHandler<GetTasksQuery> {
 
   async execute(query: GetTasksQuery): Promise<IList<ITask>> {
     const { queryParams } = query;
-    const { search, page = 1, limit = 0, order } = queryParams;
+    const { search, page = 1, limit = 0, sort } = queryParams;
     const skip = (page - 1) * limit;
 
     const options: FindManyOptions<ITask> = {};
@@ -25,8 +25,8 @@ export class GetTasksHandler implements ICommandHandler<GetTasksQuery> {
       options.take = limit;
     }
 
-    if (order) {
-      options.order = order;
+    if (sort) {
+      options.order = sort;
     }
 
     const [tasks, total] = await this.taskEntityService.findAndCount(options);
