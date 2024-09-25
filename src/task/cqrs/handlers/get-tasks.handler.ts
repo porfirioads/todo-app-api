@@ -3,7 +3,7 @@ import { TaskEntityService } from '../../../common/database/entities/task-entity
 import { ITask } from '../../../common/interfaces/task.interface';
 import { GetTasksQuery } from '../queries/get-tasks.query';
 import { FindManyOptions, Like } from 'typeorm';
-import { IList } from 'src/common/interfaces/list.interface';
+import { IList } from '../../../common/interfaces/list.interface';
 
 @QueryHandler(GetTasksQuery)
 export class GetTasksHandler implements ICommandHandler<GetTasksQuery> {
@@ -11,7 +11,7 @@ export class GetTasksHandler implements ICommandHandler<GetTasksQuery> {
 
   async execute(query: GetTasksQuery): Promise<IList<ITask>> {
     const { queryParams } = query;
-    const { search, page = 1, limit = 0 } = queryParams;
+    const { search, page = 1, limit = 0, order } = queryParams;
     const skip = (page - 1) * limit;
 
     const options: FindManyOptions<ITask> = {};
@@ -23,6 +23,10 @@ export class GetTasksHandler implements ICommandHandler<GetTasksQuery> {
     if (limit) {
       options.skip = skip;
       options.take = limit;
+    }
+
+    if (order) {
+      options.order = order;
     }
 
     const [tasks, total] = await this.taskEntityService.findAndCount(options);
