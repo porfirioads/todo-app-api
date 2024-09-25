@@ -17,6 +17,8 @@ import { DeleteTaskCommand } from '../cqrs/commands/delete-task.command';
 import { GetTasksQuery } from '../cqrs/queries/get-tasks.query';
 import { GetTaskByIdQuery } from '../cqrs/queries/get-task-by-id.query';
 import { GetTasksQueryParamsDto } from '../dtos/get-tasks-query-params.dto';
+import { IsInt } from 'class-validator';
+import { FindOneParamsDto } from '../dtos/find-one-params.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -36,8 +38,8 @@ export class TasksController {
   }
 
   @Get(':id')
-  async findById(@Param('id') id: number) {
-    return this.queryBus.execute(new GetTaskByIdQuery(id));
+  async findById(@Param() params: FindOneParamsDto) {
+    return this.queryBus.execute(new GetTaskByIdQuery(params.id));
   }
 
   @Patch(':id')
