@@ -12,16 +12,19 @@ export class TaskListDto implements IList<ITask> {
 
   @ApiProperty({
     description: 'Total of records',
+    example: 1,
   })
   total: number;
 
   @ApiProperty({
     description: 'Page number',
+    example: 1,
   })
   page: number;
 
   @ApiProperty({
     description: 'Records count per page',
+    example: 0,
   })
   limit: number;
 }
