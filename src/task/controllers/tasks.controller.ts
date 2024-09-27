@@ -29,8 +29,8 @@ export class TasksController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create task',
-    description: 'This endpoint creates a new task',
+    summary: 'Create a new task',
+    description: 'Creates a new task.',
   })
   @ApiBody({
     type: CreateTaskDto,
@@ -41,8 +41,8 @@ export class TasksController {
   }
 
   @ApiOperation({
-    summary: 'Get list of tasks',
-    description: 'This endpoint returns a list of tasks',
+    summary: 'Get all tasks',
+    description: 'Retrieves all tasks with optional filtering.',
   })
   @Get()
   async find(@Query() query: GetTasksQueryParamsDto) {
@@ -50,8 +50,8 @@ export class TasksController {
   }
 
   @ApiOperation({
-    summary: 'Get task by id',
-    description: 'This endpoint returns the task who match the given id',
+    summary: 'Get a task by ID',
+    description: 'Retrieves a specific task by its ID.',
   })
   @Get(':id')
   async findById(@Param() params: FindOneParamsDto) {
@@ -59,8 +59,8 @@ export class TasksController {
   }
 
   @ApiOperation({
-    summary: 'Update task by id',
-    description: 'This endpoint updates the task who match the given id',
+    summary: 'Update a task',
+    description: 'Updates an existing task identified by its ID.',
   })
   @Patch(':id')
   async update(@Param('id') id: number, @Body() body: UpdateTaskDto) {
@@ -68,8 +68,8 @@ export class TasksController {
   }
 
   @ApiOperation({
-    summary: 'Delete task by id',
-    description: 'This endpoint deletes the task who match the given id',
+    summary: 'Delete a task',
+    description: 'Deletes a specific task by its ID.',
   })
   @Delete(':id')
   async delete(@Param('id') id: number) {
