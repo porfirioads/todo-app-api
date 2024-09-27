@@ -12,10 +12,10 @@ import {
   IListQuerySort,
   ListQuerySortMode,
 } from '../../common/interfaces/list-query-params.interface';
-import { ITask } from '../../common/interfaces/task.interface';
+import { ITaskEntity } from '../../common/interfaces/task.interface';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class GetTasksQuerySortDto implements IListQuerySort<ITask> {
+export class GetTasksQuerySortDto implements IListQuerySort<ITaskEntity> {
   @IsOptional()
   @IsEnum(ListQuerySortMode)
   id?: ListQuerySortMode;
@@ -37,7 +37,7 @@ export class GetTasksQuerySortDto implements IListQuerySort<ITask> {
   updatedAt?: ListQuerySortMode;
 }
 
-export class GetTasksQueryParamsDto implements IListQueryParams<ITask> {
+export class GetTasksQueryParamsDto implements IListQueryParams<ITaskEntity> {
   @ApiProperty({
     required: false,
     description: 'Text to search in tasks descriptions',
@@ -70,15 +70,12 @@ export class GetTasksQueryParamsDto implements IListQueryParams<ITask> {
   @Type(() => Number)
   limit?: number;
 
-  // TODO: Check if it is possible to use examples from GetTasksQuerySortDto
   @ApiProperty({
     required: false,
-    description: 'Query sort settings',
+    description: 'Sort settings for the query results. GetTasksQuerySortDto',
     type: String,
     example: JSON.stringify({
-      id: 'ASC',
-      description: 'DESC',
-      completed: 'ASC',
+      createdAt: 'ASC',
     }),
   })
   @IsOptional()
@@ -87,5 +84,5 @@ export class GetTasksQueryParamsDto implements IListQueryParams<ITask> {
   )
   @ValidateNested()
   @Type(() => GetTasksQuerySortDto)
-  sort?: IListQuerySort<ITask>;
+  sort?: IListQuerySort<ITaskEntity>;
 }

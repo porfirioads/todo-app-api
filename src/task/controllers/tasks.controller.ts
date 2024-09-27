@@ -17,8 +17,10 @@ import { DeleteTaskCommand } from '../cqrs/commands/delete-task.command';
 import { GetTasksQuery } from '../cqrs/queries/get-tasks.query';
 import { GetTaskByIdQuery } from '../cqrs/queries/get-task-by-id.query';
 import { GetTasksQueryParamsDto } from '../dtos/get-tasks-query-params.dto';
-import { FindOneParamsDto } from '../dtos/find-one-params.dto';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { FindByIdParamsDto } from '../dtos/find-by-id-params.dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TaskListDto } from '../dtos/task-list.dto';
+import { TaskDto } from '../dtos/task.dto';
 
 @ApiTags('Tasks')
 @Controller('tasks')
@@ -29,20 +31,12 @@ export class TasksController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create a new task',
-    description: 'Creates a new task.',
-  })
-  @ApiBody({
-    type: CreateTaskDto,
-  })
-  @Post()
-  async create(@Body() body: CreateTaskDto) {
-    return this.commandBus.execute(new CreateTaskCommand(body));
-  }
-
-  @ApiOperation({
     summary: 'Get all tasks',
-    description: 'Retrieves all tasks with optional filtering.',
+    description: 'Retrieves all tasks with optional filtering',
+  })
+  @ApiResponse({
+    status: 200,
+    type: TaskListDto,
   })
   @Get()
   async find(@Query() query: GetTasksQueryParamsDto) {
@@ -51,28 +45,62 @@ export class TasksController {
 
   @ApiOperation({
     summary: 'Get a task by ID',
-    description: 'Retrieves a specific task by its ID.',
+    description: 'Retrieves a specific task by its ID',
+  })
+  @ApiResponse({
+    status: 200,
+    type: TaskDto,
   })
   @Get(':id')
-  async findById(@Param() params: FindOneParamsDto) {
+  async findById(@Param() params: FindByIdParamsDto) {
     return this.queryBus.execute(new GetTaskByIdQuery(params.id));
   }
 
   @ApiOperation({
+    summary: 'Create a new task',
+    description: 'Creates a new task',
+  })
+  @ApiBody({
+    type: CreateTaskDto,
+  })
+  @ApiResponse({
+    status: 200,
+    type: TaskDto,
+  })
+  @Post()
+  async create(@Body() body: CreateTaskDto) {
+    return this.commandBus.execute(new CreateTaskCommand(body));
+  }
+
+  @ApiOperation({
     summary: 'Update a task',
-    description: 'Updates an existing task identified by its ID.',
+    description: 'Updates an existing task identified by its ID',
+  })
+  @ApiBody({
+    type: UpdateTaskDto,
+  })
+  @ApiResponse({
+    status: 200,
+    type: TaskDto,
   })
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() body: UpdateTaskDto) {
-    return this.commandBus.execute(new UpdateTaskCommand(id, body));
+  async update(
+    @Param() params: FindByIdParamsDto,
+    @Body() body: UpdateTaskDto,
+  ) {
+    return this.commandBus.execute(new UpdateTaskCommand(params.id, body));
   }
 
   @ApiOperation({
     summary: 'Delete a task',
-    description: 'Deletes a specific task by its ID.',
+    description: 'Deletes a specific task by its ID',
+  })
+  @ApiResponse({
+    status: 200,
+    type: TaskDto,
   })
   @Delete(':id')
-  async delete(@Param('id') id: number) {
-    return this.commandBus.execute(new DeleteTaskCommand(id));
+  async delete(@Param() params: FindByIdParamsDto) {
+    return this.commandBus.execute(new DeleteTaskCommand(params.id));
   }
 }
