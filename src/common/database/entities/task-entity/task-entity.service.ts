@@ -9,6 +9,7 @@ import { TaskEntity } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateTaskDto } from '../../../../task/dtos/update-task.dto';
 import { CreateTaskDto } from '../../../../task/dtos/create-task.dto';
+import { ITaskBase } from '../../../../common/interfaces/task.interface';
 
 @Injectable()
 export class TaskEntityService {
@@ -17,7 +18,7 @@ export class TaskEntityService {
     private taskRepository: Repository<TaskEntity>,
   ) {}
 
-  async create(task: CreateTaskDto): Promise<TaskEntity> {
+  async create(task: CreateTaskDto): Promise<ITaskBase> {
     const newTask = this.taskRepository.create({
       ...task,
       completed: false,
@@ -35,13 +36,13 @@ export class TaskEntityService {
     });
   }
 
-  async findOneById(id: number): Promise<TaskEntity> {
+  async findOneById(id: number): Promise<ITaskBase> {
     return this.taskRepository.findOneBy({ id });
   }
 
   async findAndCount(
-    options?: FindManyOptions<TaskEntity>,
-  ): Promise<[TaskEntity[], number]> {
+    options?: FindManyOptions<ITaskBase>,
+  ): Promise<[ITaskBase[], number]> {
     return this.taskRepository.findAndCount(options);
   }
 
