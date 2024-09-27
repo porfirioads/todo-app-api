@@ -1,7 +1,7 @@
 /**
- * Interface for entity data stored in database.
+ * Interface with the data stored in the database.
  */
-export interface ITaskBase {
+export interface ITaskEntity {
   id: number;
   description: string;
   completed: boolean;
@@ -10,19 +10,32 @@ export interface ITaskBase {
 }
 
 /**
- * Interface for entity data returned data by endpoints.
+ * Interface with the data needed to create a entity record in the database.
  */
-export type ITask = ITaskBase;
+export type ICreateTaskEntity = Omit<
+  ITaskEntity,
+  'id' | 'createdAt' | 'updatedAt'
+>;
 
 /**
- * Interface for entity create dto.
+ * Interface with the data needed to update a entity record in the database.
+ */
+export type IUpdateTaskEntity = Partial<ICreateTaskEntity>;
+
+/**
+ * Interface with de data returned by endpoints.
+ */
+export type ITask = ITaskEntity;
+
+/**
+ * Interface with the data needed by the create endpoint.
  */
 export type ICreateTaskDto = Omit<
-  ITaskBase,
+  ITaskEntity,
   'id' | 'completed' | 'createdAt' | 'updatedAt'
 >;
 
 /**
- * Interface for entity update dto.
+ * Interface with the data needed by the update endpoint.
  */
 export type IUpdateTaskDto = Partial<ICreateTaskDto>;

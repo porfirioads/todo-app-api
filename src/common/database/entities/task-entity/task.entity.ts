@@ -5,10 +5,10 @@ import {
   UpdateDateColumn,
   Entity,
 } from 'typeorm';
-import { ITaskBase } from '../../../interfaces/task.interface';
+import { ITaskEntity } from '../../../interfaces/task.interface';
 
 @Entity({ name: 'tasks' })
-export class TaskEntity implements ITaskBase {
+export class TaskEntity implements ITaskEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

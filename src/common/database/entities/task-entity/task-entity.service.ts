@@ -7,9 +7,11 @@ import {
 } from 'typeorm';
 import { TaskEntity } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateTaskDto } from '../../../../task/dtos/update-task.dto';
-import { CreateTaskDto } from '../../../../task/dtos/create-task.dto';
-import { ITaskBase } from '../../../../common/interfaces/task.interface';
+import {
+  ITaskEntity,
+  ICreateTaskEntity,
+  IUpdateTaskEntity,
+} from '../../../../common/interfaces/task.interface';
 
 @Injectable()
 export class TaskEntityService {
@@ -18,7 +20,7 @@ export class TaskEntityService {
     private taskRepository: Repository<TaskEntity>,
   ) {}
 
-  async create(task: CreateTaskDto): Promise<ITaskBase> {
+  async create(task: ICreateTaskEntity): Promise<ITaskEntity> {
     const newTask = this.taskRepository.create({
       ...task,
       completed: false,
@@ -29,20 +31,20 @@ export class TaskEntityService {
     return this.taskRepository.save(newTask);
   }
 
-  async update(id: number, task: UpdateTaskDto): Promise<UpdateResult> {
+  async update(id: number, task: IUpdateTaskEntity): Promise<UpdateResult> {
     return this.taskRepository.update(id, {
       ...task,
       updatedAt: new Date(),
     });
   }
 
-  async findOneById(id: number): Promise<ITaskBase> {
+  async findOneById(id: number): Promise<ITaskEntity> {
     return this.taskRepository.findOneBy({ id });
   }
 
   async findAndCount(
-    options?: FindManyOptions<ITaskBase>,
-  ): Promise<[ITaskBase[], number]> {
+    options?: FindManyOptions<ITaskEntity>,
+  ): Promise<[ITaskEntity[], number]> {
     return this.taskRepository.findAndCount(options);
   }
 

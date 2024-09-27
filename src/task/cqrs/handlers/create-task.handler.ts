@@ -9,6 +9,9 @@ export class CreateTaskHandler implements ICommandHandler<CreateTaskCommand> {
 
   execute(command: CreateTaskCommand): Promise<ITask> {
     const { input } = command;
-    return this.taskEntityService.create(input);
+    return this.taskEntityService.create({
+      ...input,
+      completed: false,
+    });
   }
 }
