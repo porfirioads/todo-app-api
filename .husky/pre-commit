@@ -1,1 +1,2 @@
-echo "pre-commit"
+npx pretty-quick --staged
+git add .
