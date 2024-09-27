@@ -1,4 +1,4 @@
-import { ICommandHandler, QueryHandler } from '@nestjs/cqrs';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { TaskEntityService } from '../../../common/database/entities/task-entity/task-entity.service';
 import { ITask } from '../../../common/interfaces/task.interface';
 import { GetTasksQuery } from '../queries/get-tasks.query';
@@ -6,7 +6,7 @@ import { FindManyOptions, Like } from 'typeorm';
 import { IList } from '../../../common/interfaces/list.interface';
 
 @QueryHandler(GetTasksQuery)
-export class GetTasksHandler implements ICommandHandler<GetTasksQuery> {
+export class GetTasksHandler implements IQueryHandler<GetTasksQuery> {
   constructor(private readonly taskEntityService: TaskEntityService) {}
 
   async execute(query: GetTasksQuery): Promise<IList<ITask>> {
